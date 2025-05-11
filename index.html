@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eu te amo</title>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+body {
+    background-image: url(ac68c133-1c4a-4077-b92d-f89882a033df.jfif);
+    background-size: cover;
+
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+#main_principal,
+#main_secundaria,
+#main_terciario,
+#final {
+    display: none;
+}
+
+.activate {
+    display: block !important;
+}
+
+.container {
+    text-align: center;
+    background-color: aliceblue;
+    padding: 50px;
+    border-radius: 10px;
+box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;    
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+#buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: space-around;
+}
+
+.yes {
+    background-color: rgb(0, 255, 0);
+    border: 2px solid green;
+    border-radius: 10px;
+    padding: 15px 40px;
+
+    font-weight: bolder;
+    font-size: 20px;
+
+}
+
+.no {
+    background-color: rgb(255, 0, 0);
+    border: 2px solid rgb(128, 0, 0);
+    border-radius: 10px;
+    padding: 15px 40px;
+
+    font-weight: bolder;
+    font-size: 20px;
+    color: white;
+}
+#negativo {
+    transition: all 0.3s ease;
+    position: fixed;
+    z-index: 999; /* Garante que ele fique acima de outros elementos */
+}
+
+
+</style>
+</head>
+
+<body>
+    <div id="main_principal" class="activate">
+        <div class="container">
+            <h1>VC TÁ BRAVA CMG?</h1>
+            <div id="buttons">
+                <button class="yes" type="submit">SIM</button>
+                <button class="no" type="submit">NÃO</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="main_secundaria">
+        <div class="container">
+            <h1>VC AINDA ME AMA?</h1>
+            <div id="buttons">
+                <button class="yes" type="submit">SIM</button>
+                <button class="no" type="submit">NÃO</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="main_terciario">
+        <div class="container">
+            <h1>VC QUER PASSAR O RESTO DA VIDA CMG?</h1>
+            <div id="buttons">
+                <button class="yes" type="submit">SIM</button>
+                <button class="no" id="negativo">NÃO</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="final">
+        <div class="container">
+            <h1>Eu também quero passar o resto da vida com VC❤</h1>
+        </div>
+    </div>
+    <script>
+        const sections = ["main_principal", "main_secundaria", "main_terciario"];
+        let currentSection = 0;
+
+        // Avança as telas ao clicar nos botões, exceto o botão que foge
+        document.querySelectorAll("button").forEach(button => {
+            button.addEventListener("click", (event) => {
+                if (event.target.id === "negativo") return;
+
+                document.getElementById(sections[currentSection]).classList.remove("activate");
+                currentSection++;
+                if (currentSection < sections.length) {
+                    document.getElementById(sections[currentSection]).classList.add("activate");
+                } else {
+                    document.getElementById("final").classList.add("activate");
+                }
+
+            });
+        });
+
+        // Botão que foge (para celular, usa touchstart)
+        const btnNegativo = document.getElementById("negativo");
+        btnNegativo.addEventListener("touchstart", () => {
+            const maxX = window.innerWidth - btnNegativo.offsetWidth;
+            const maxY = window.innerHeight - btnNegativo.offsetHeight;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            btnNegativo.style.left = `${randomX}px`;
+            btnNegativo.style.top = `${randomY}px`;
+        });
+    </script>
+
+</body>
+
+</html>
